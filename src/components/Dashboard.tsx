@@ -54,7 +54,6 @@ export function Dashboard({ data }: DashboardProps) {
     totalBins > 0 ? (totalPickTime * 3600) / totalBins : 0; // Convert to seconds
   const uniqueEmployees = employeePerformance.length;
 
-
   const handleFilterChange = (filtered: EmployeePerformance[]) => {
     setFilteredEmployeeData(filtered);
   };
@@ -182,7 +181,6 @@ export function Dashboard({ data }: DashboardProps) {
         <CardHeader>
           <CardTitle>Employee Performance Summary</CardTitle>
           <p className="text-sm text-muted-foreground">
-            Pivot table view with aggregated data across all uploaded weeks.
             Click column headers to sort. Use filters above to search by
             initials, efficiency, weeks, or ranges.
           </p>
@@ -195,16 +193,12 @@ export function Dashboard({ data }: DashboardProps) {
         </CardContent>
       </Card>
 
-
-
-
-
       {/* Filter Status */}
       {filteredEmployeeData.length > 0 && (
         <Card className="bg-blue-50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800">
           <CardContent className="p-4">
             <p className="text-sm text-blue-800 dark:text-blue-200">
-              📊 <strong>Filtered View:</strong> Showing{" "}
+              <strong>Filtered View:</strong> Showing{" "}
               {filteredEmployeeData.length} of {allEmployeePerformance.length}{" "}
               employees. Summary cards and employee chart reflect filtered data.
               Weekly trends show all data for context.

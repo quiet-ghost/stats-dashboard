@@ -1,9 +1,9 @@
-import { useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
-import { Upload, FileSpreadsheet, X } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import type { FileUpload as FileUploadType } from '@/types';
+import { useCallback } from "react";
+import { useDropzone } from "react-dropzone";
+import { Upload, FileSpreadsheet, X } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import type { FileUpload as FileUploadType } from "@/types";
 
 interface FileUploadProps {
   files: FileUploadType[];
@@ -11,27 +11,38 @@ interface FileUploadProps {
   onFileRemove: (fileId: string) => void;
 }
 
-export function FileUpload({ files, onFilesAdded, onFileRemove }: FileUploadProps) {
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    const excelFiles = acceptedFiles.filter(file => 
-      file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
-      file.type === 'application/vnd.ms-excel' ||
-      file.name.endsWith('.xlsx') ||
-      file.name.endsWith('.xls')
-    );
-    
-    if (excelFiles.length > 0) {
-      onFilesAdded(excelFiles);
-    }
-  }, [onFilesAdded]);
+export function FileUpload({
+  files,
+  onFilesAdded,
+  onFileRemove,
+}: FileUploadProps) {
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      const excelFiles = acceptedFiles.filter(
+        (file) =>
+          file.type ===
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" ||
+          file.type === "application/vnd.ms-excel" ||
+          file.name.endsWith(".xlsx") ||
+          file.name.endsWith(".xls"),
+      );
+
+      if (excelFiles.length > 0) {
+        onFilesAdded(excelFiles);
+      }
+    },
+    [onFilesAdded],
+  );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'],
-      'application/vnd.ms-excel': ['.xls']
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [
+        ".xlsx",
+      ],
+      "application/vnd.ms-excel": [".xls"],
     },
-    multiple: true
+    multiple: true,
   });
 
   return (
@@ -42,8 +53,8 @@ export function FileUpload({ files, onFilesAdded, onFileRemove }: FileUploadProp
             {...getRootProps()}
             className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
               isDragActive
-                ? 'border-primary bg-primary/5'
-                : 'border-muted-foreground/25 hover:border-primary/50'
+                ? "border-primary bg-primary/5"
+                : "border-muted-foreground/25 hover:border-primary/50"
             }`}
           >
             <input {...getInputProps()} />
@@ -52,7 +63,10 @@ export function FileUpload({ files, onFilesAdded, onFileRemove }: FileUploadProp
               <p className="text-lg">Drop the Excel files here...</p>
             ) : (
               <div>
-                <p className="text-lg mb-2">Drag & drop Excel files here, or click to select</p>
+                <p className="text-lg mb-2">
+                  Drag & drop Excel files here, or click to select - IMPORTANT:
+                  picks or packs must be in file name!
+                </p>
                 <p className="text-sm text-muted-foreground">
                   Supports .xlsx and .xls files. Multiple files allowed.
                 </p>
@@ -83,14 +97,20 @@ export function FileUpload({ files, onFilesAdded, onFileRemove }: FileUploadProp
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
-                    {file.status === 'completed' && (
-                      <span className="text-sm text-green-600 font-medium">✓ Processed</span>
+                    {file.status === "completed" && (
+                      <span className="text-sm text-green-600 font-medium">
+                        ✓ Processed
+                      </span>
                     )}
-                    {file.status === 'error' && (
-                      <span className="text-sm text-red-600 font-medium">✗ Error</span>
+                    {file.status === "error" && (
+                      <span className="text-sm text-red-600 font-medium">
+                        ✗ Error
+                      </span>
                     )}
-                    {file.status === 'processing' && (
-                      <span className="text-sm text-blue-600 font-medium">Processing...</span>
+                    {file.status === "processing" && (
+                      <span className="text-sm text-blue-600 font-medium">
+                        Processing...
+                      </span>
                     )}
                     <Button
                       variant="ghost"

@@ -102,7 +102,7 @@ function processPackData(
     const row = data[i];
     if (!row || row.length === 0 || !row[1]) continue;
 
-    const employee = String(row[1]).trim(); // Packer is in column 2
+    const employee = String(row[1]).trim();
     if (!employee || employee === "TOTALS") continue;
 
     const packData: PackStatsData = {
@@ -180,10 +180,10 @@ export function calculateEmployeePerformance(
     // Thresholds: ≤25s = Level 3, 26-35s = Level 2, >35s = Level 1
     let efficiency: "level1" | "level2" | "level3" = "level2";
     if (avgTimePerBinSeconds > 0) {
-    if (avgTimePerBinSeconds <= 25.5) {
-        efficiency = 'level3';
+      if (avgTimePerBinSeconds <= 25.5) {
+        efficiency = "level3";
       } else if (avgTimePerBinSeconds > 35) {
-        efficiency = 'level1';
+        efficiency = "level1";
       }
     }
 
